@@ -1,6 +1,8 @@
-# ToolGate: Predicting Tool-Call Utility in VLM Agents
+# ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with
+Pre-Call Gating
 
-Code for *"When Tools Hurt: Predicting Tool-Call Utility in VLM Agents."*
+Code for *"ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with
+Pre-Call Gating."*
 
 A vision-language agent calls external tools (detection, OCR, cropping, depth,
 segmentation) to answer hard visual questions. But many tool calls are useless
@@ -62,15 +64,7 @@ Gate behaviour is controlled by env vars read in `skillguard/probe_gate.py`
 > Note: some scripts under `scripts/probing/` assume a local data/results
 > directory layout; adjust the paths near the top of each script for your setup.
 
-## Citation
 
-```bibtex
-@inproceedings{toolgate,
-  title     = {When Tools Hurt: Predicting Tool-Call Utility in VLM Agents},
-  author    = {The ToolGate Authors},
-  year      = {2026}
-}
-```
 
 ## License
 
