@@ -104,3 +104,34 @@ host (e.g. via cloudflared tunnel or a real S3) so the VLM can fetch the crop.
 docker compose down -v          # also wipes the bucket; remove `-v` to keep data
 rm -rf .data .venv               # full reset
 ```
+
+
+---
+
+## Other tool servers (bring your own — model-backed)
+
+This local-stack provides **MinIO + the `cropping` tool** (model-free). The
+agent also calls model-backed tools that you serve yourself as MCP endpoints
+(no model weights are shipped). Point the agent at them via `server_url` in
+`configs/*.yaml` — defaults: detection/segmentation/depth/crop/bbox on
+`http://localhost:10009/mcp`, OCR on `http://localhost:10011/mcp`.
+
+Every tool takes a publicly-fetchable `image_url` (e.g. a MinIO URL); image ops
+write results back to MinIO and return an `output_image` URL. The **MCP tool
+name registered on your server must match** the names below.
+
+| MCP tool name | extra params | returns | typical model |
+|---|---|---|---|
+| `detection` | `targets: list[str]` | `[{label, bbox:[x1,y1,x2,y2], score}]` | open-vocab detector (e.g. GroundingDINO) |
+| `detection_small_object` | `targets: list[str]` | same as detection | detector + tiling/hi-res |
+| `ocr` | — | extracted text / blocks | OCR (e.g. MinerU, PaddleOCR) |
+| `segmentation_segmentation_post` | `text_prompt: str` | `output_image` (mask overlay) | text-prompted segmenter (e.g. GroundingDINO + SAM) |
+| `depth_estimation_depth_estimation_post` | — | `output_image` (depth map) | monocular depth (e.g. Depth-Anything) |
+| `crop_image_tool_crop_image_post` | `coordinates: [x1,y1,x2,y2]` | `output_image` (crop) | **provided here** (`server.py`) |
+| `bbox_drawing_tool_bbox_drawing_post` | `boxes`, `line_thickness` | `output_image` | pure PIL (no model) |
+| `bbox_center_labeling_tool_bbox_center_labeling_post` | `bboxes`, `font_size` | `output_image` | pure PIL (no model) |
+
+Serve them with any MCP framework (`fastmcp`, as in `server.py`). The two
+`bbox_*` tools are pure-PIL like cropping and can be added to `server.py`
+trivially if you want them local too; `detection`/`ocr`/`segmentation`/`depth`
+need real models, so wrap your own and expose them at the URLs above.
