@@ -178,7 +178,7 @@ class ProbeGate:
         import numpy as np, io, hashlib, os
         from pathlib import Path
 
-        CACHE_DIR = Path('/workspace/skill-guard/data/probe_info_gain/cache/pixel_feats')
+        CACHE_DIR = Path('data/probe_info_gain/cache/pixel_feats')
 
         def url_key(u):
             return hashlib.md5(u.encode()).hexdigest() if u else ''

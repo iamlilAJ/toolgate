@@ -17,7 +17,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 
-sys.path.insert(0, '/workspace/cv-agent/scripts/probing')
+sys.path.insert(0, __import__("os").path.dirname(__import__("os").path.abspath(__file__)))
 from train_probe import load_info_gain_records, build_trajectory_prefix_from_record
 from train_probe_noconf import build_struct_features
 
@@ -31,11 +31,11 @@ TOOL_NAMES = [
 STRUCT_SPEC = ['step_idx_norm', 'is_first_step', 'is_repeated_tool', 'tool_onehot']
 
 INPUT_FILES = [
-    '/workspace/skill-guard/data/probe_info_gain/vstar_full.jsonl',
-    '/workspace/skill-guard/data/probe_info_gain/cvbench_500.jsonl',
-    '/workspace/skill-guard/data/probe_info_gain/hrbench4k_full.jsonl',
-    '/workspace/skill-guard/data/probe_info_gain/hrbench8k_full.jsonl',
-    '/workspace/skill-guard/data/probe_info_gain/mme_full.jsonl',
+    'data/probe_info_gain/vstar_full.jsonl',
+    'data/probe_info_gain/cvbench_500.jsonl',
+    'data/probe_info_gain/hrbench4k_full.jsonl',
+    'data/probe_info_gain/hrbench8k_full.jsonl',
+    'data/probe_info_gain/mme_full.jsonl',
 ]
 
 

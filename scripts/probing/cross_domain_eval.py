@@ -29,13 +29,13 @@ def load_records(*paths):
     return records
 
 
-probe = load_records("/workspace/skill-guard/data/probe_info_gain/probe_p1_full.jsonl")
+probe = load_records("data/probe_info_gain/probe_p1_full.jsonl")
 eval_paths = {
-    "vstar": "/workspace/skill-guard/data/probe_info_gain/vstar_full.jsonl",
-    "cvbench": "/workspace/skill-guard/data/probe_info_gain/cvbench_500.jsonl",
-    "hr4k": "/workspace/skill-guard/data/probe_info_gain/hrbench4k_full.jsonl",
-    "hr8k": "/workspace/skill-guard/data/probe_info_gain/hrbench8k_full.jsonl",
-    "mme": "/workspace/skill-guard/data/probe_info_gain/mme_full.jsonl",
+    "vstar": "data/probe_info_gain/vstar_full.jsonl",
+    "cvbench": "data/probe_info_gain/cvbench_500.jsonl",
+    "hr4k": "data/probe_info_gain/hrbench4k_full.jsonl",
+    "hr8k": "data/probe_info_gain/hrbench8k_full.jsonl",
+    "mme": "data/probe_info_gain/mme_full.jsonl",
 }
 eval_all = load_records(*eval_paths.values())
 

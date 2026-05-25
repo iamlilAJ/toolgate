@@ -21,7 +21,7 @@ import glob
 import os
 from collections import OrderedDict
 
-RESULTS_ROOT = '/workspace/cv-agent/results'
+RESULTS_ROOT = 'results'
 
 
 def stats_from_judged(judged_file):

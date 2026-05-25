@@ -16,7 +16,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.metrics import roc_auc_score, accuracy_score, classification_report
 from sklearn.neural_network import MLPClassifier
 
-sys.path.insert(0, '/workspace/cv-agent/scripts/probing')
+sys.path.insert(0, __import__("os").path.dirname(__import__("os").path.abspath(__file__)))
 from train_probe import load_info_gain_records, build_trajectory_prefix_from_record
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')

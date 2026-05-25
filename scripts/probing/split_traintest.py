@@ -4,14 +4,14 @@
 Seed=42, over UNIQUE task_ids (not records) so each question goes to one split.
 """
 import argparse, json, os, random, sys
-sys.path.insert(0, '/workspace/cv-agent/scripts/probing')
+sys.path.insert(0, __import__("os").path.dirname(__import__("os").path.abspath(__file__)))
 
 BENCHES = ['cvbench_500','hrbench4k_full','hrbench8k_full','mme_full','vstar_full']
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data-dir', default='/workspace/skill-guard/data/probe_info_gain')
-    parser.add_argument('--out-dir', default='/workspace/skill-guard/splits')
+    parser.add_argument('--data-dir', default='data/probe_info_gain')
+    parser.add_argument('--out-dir', default='splits')
     parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
 

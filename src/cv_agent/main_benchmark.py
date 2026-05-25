@@ -1024,7 +1024,9 @@ if __name__ == "__main__":
 
     logger = logging.getLogger(__name__)  # Get logger for main thread
 
-    ray.init(runtime_env={"working_dir": "/workspace/cv-agent", "excludes": [".venv", ".venv/**", "**/.venv/**", "results", "results/**", "logs", "logs/**", "data", "data/**", "reports/**", "__pycache__/**", "**/*.pyc", ".git/**", "pyproject.toml", "uv.lock", "*.ipynb"]})
+    _REPO_ROOT = os.environ.get("CV_AGENT_ROOT") or os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", ".."))
+    ray.init(runtime_env={"working_dir": _REPO_ROOT, "excludes": [".venv", ".venv/**", "**/.venv/**", "results", "results/**", "logs", "logs/**", "data", "data/**", "reports/**", "__pycache__/**", "**/*.pyc", ".git/**", "pyproject.toml", "uv.lock", "*.ipynb"]})
     logger.info("Ray initialized. Log dir: %s, Results dir: %s", args.log_dir, args.results_dir)
 
     logger.info("Loading dataset loader: %s", args.dataset)

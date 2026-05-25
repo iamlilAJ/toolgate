@@ -71,7 +71,7 @@ workflow:
       name: cv_tool_executor
       parameters:
         enable_probe_gate: true
-        probe_gate_model_path: /workspace/skill-guard/models/probe_gate/probe_235b_skipsafe_minilm.joblib
+        probe_gate_model_path: models/probe_235b_skipsafe_minilm.joblib
         probe_gate_threshold: 0.5
     agent:
       name: planner_agent_node

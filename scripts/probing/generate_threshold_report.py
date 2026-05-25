@@ -2,9 +2,9 @@
 """Generate threshold_sweep_30b.md v2 — fixes from review."""
 import json, glob, os, csv, datetime
 
-BASE = '/workspace/cv-agent/results'
-ART_DIR = '/workspace/skill-guard/reports/threshold_sweep_30b_artifacts'
-REPORT = '/workspace/skill-guard/reports/threshold_sweep_30b.md'
+BASE = 'results'
+ART_DIR = 'reports/threshold_sweep_30b_artifacts'
+REPORT = 'reports/threshold_sweep_30b.md'
 os.makedirs(ART_DIR, exist_ok=True)
 
 ORDER = ['vstar','cvbench','hrbench-4k','hrbench-8k','mme']
@@ -103,7 +103,7 @@ with open('/tmp/gate_log_analysis/skip_by_depth.csv') as f:
 
 # Training data tool_useful rate per tool (E3 calibration diagnostic)
 tool_train_useful = {}
-for f in glob.glob('/workspace/cv-agent/results/qwen-30b-info-gain-lp/agent/probe-all-v3/*/trajectories/*.jsonl'):
+for f in glob.glob('results/qwen-30b-info-gain-lp/agent/probe-all-v3/*/trajectories/*.jsonl'):
     with open(f) as fh:
         for line in fh:
             try:
@@ -306,8 +306,8 @@ md.append('\n## 6. Artifacts\n')
 md.append(f'- Full per-(config, bench) CSV with baseline source: `{ART_DIR}/summary_matrix.csv`\n')
 md.append('- Gate-log diagnostics: `/tmp/gate_log_analysis/skip_by_{tool,depth,bench}.csv`\n')
 md.append('- Oracle summary: `/tmp/oracle_replay/oracle_summary.json`\n')
-md.append('- Deployment trajectories: `/workspace/cv-agent/results/qwen-30b-probe-v3-skipsafe-qwen*/agent/`\n')
-md.append('- Info_gain trajectories (for oracle): `/workspace/cv-agent/results/qwen-30b-info-gain-lp*/agent/`\n')
+md.append('- Deployment trajectories: `results/qwen-30b-probe-v3-skipsafe-qwen*/agent/`\n')
+md.append('- Info_gain trajectories (for oracle): `results/qwen-30b-info-gain-lp*/agent/`\n')
 
 md.append('\n## 7. Recommendation\n')
 md.append('**Headline setting: τ=0.6** — AVG(5) accuracy gain ~+1pp over baseline with ~0.57× tokens. τ=0.4 and τ=0.5 are near-equivalent alternative operating points for deployments that prefer slightly higher accuracy at slightly higher token cost.\n')
