@@ -1,0 +1,87 @@
+agent_config:
+  max_turns: 10
+invocation_config:
+  callbacks:
+  - langfuse
+  recursion_limit: 60
+llm:
+  model_alias: Qwen3-VL-235B
+  name: openai_model
+  parameters:
+    api_key: anything
+    base_url: http://localhost:10021/v1
+    max_tokens: 2048
+    model: Qwen3-VL-235B-A22B-Instruct-FP8
+    temperature: 0
+state:
+  current_turn: int
+  gate_log: list
+  image_dimensions: dict
+  max_turns: int
+  messages: list[AnyMessage]
+  original_figure_url: str
+  pending_thinking: str
+  prefix: str
+  question: str
+  tool_usage: dict
+  total_input_tokens: int
+  total_output_tokens: int
+  trajectory_steps: list
+  url_map: dict
+tools:
+- name: ocr
+  parameters:
+    server_url: http://localhost:10011/mcp
+- name: detection
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: detection_small_object
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: segmentation
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: cropping
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: depth_estimation
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: bbox_drawing
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: bbox_center_labeling
+  parameters:
+    server_url: http://localhost:10009/mcp
+workflow:
+  edges:
+  - condition:
+      function: cv_agent_react_should_continue
+      mapping:
+        continue: action
+        end: END
+      parameters:
+        use_hard_turn_limit: true
+    source: agent
+  - source: action
+    target: agent
+  entry_point: agent
+  nodes:
+    action:
+      name: cv_tool_executor
+      parameters:
+        enable_probe_gate: true
+        probe_gate_model_path: /workspace/skill-guard/models/probe_gate/probe_235b_skipsafe_minilm.joblib
+        probe_gate_threshold: 0.5
+    agent:
+      name: planner_agent_node
+      parameters:
+        prompt_generator:
+          name: planner
+        tools:
+        - ocr
+        - detection
+        - segmentation
+        - cropping
+        - depth_estimation
+        - detection_small_object

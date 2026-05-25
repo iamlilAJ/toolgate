@@ -1,0 +1,91 @@
+agent_config:
+  max_turns: 10
+invocation_config:
+  callbacks:
+  - langfuse
+  recursion_limit: 60
+llm:
+  model_alias: Qwen3-VL-235B
+  name: openai_model
+  parameters:
+    api_key: anything
+    base_url: http://localhost:10021/v1
+    max_tokens: 2048
+    logprobs: true
+    top_logprobs: 5
+    model: Qwen3-VL-235B-A22B-Instruct-FP8
+    temperature: 0
+state:
+  _ground_truth: str
+  current_turn: int
+  image_dimensions: dict
+  max_turns: int
+  messages: list[AnyMessage]
+  original_figure_url: str
+  pending_thinking: str
+  pending_thinking_logprobs: list
+  pending_thinking_top_logprobs: list
+  prefix: str
+  question: str
+  tool_usage: dict
+  total_input_tokens: int
+  total_output_tokens: int
+  trajectory_steps: list
+  url_map: dict
+tools:
+- name: ocr
+  parameters:
+    server_url: http://localhost:10011/mcp
+- name: detection
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: detection_small_object
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: segmentation
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: cropping
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: depth_estimation
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: bbox_drawing
+  parameters:
+    server_url: http://localhost:10009/mcp
+- name: bbox_center_labeling
+  parameters:
+    server_url: http://localhost:10009/mcp
+workflow:
+  edges:
+  - condition:
+      function: cv_agent_react_should_continue
+      mapping:
+        continue: action
+        end: END
+      parameters:
+        use_hard_turn_limit: true
+    source: agent
+  - source: action
+    target: agent
+  entry_point: agent
+  nodes:
+    action:
+      name: cv_tool_executor
+      parameters:
+        collect_info_gain: true
+        info_gain_endpoint: http://localhost:10021/v1
+        info_gain_model: Qwen3-VL-235B-A22B-Instruct-FP8
+    agent:
+      name: planner_agent_node
+      parameters:
+        prompt_generator:
+          name: planner
+        tools:
+        - ocr
+        - detection
+        - segmentation
+        - cropping
+        - depth_estimation
+        - detection_small_object

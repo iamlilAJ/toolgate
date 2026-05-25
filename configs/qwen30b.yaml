@@ -1,0 +1,102 @@
+llm:
+  name: openai_model
+  model_alias: Qwen3-VL-30B
+  parameters:
+    model: Qwen3-VL-30B-A3B-Instruct
+    base_url: http://localhost:10010/v1
+    api_key: anything
+    max_tokens: 2048
+    temperature: 0
+
+tools:
+
+  - name: ocr
+    parameters:
+      server_url: http://localhost:10011/mcp
+
+  - name: detection
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: detection_small_object
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: segmentation
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: cropping
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: depth_estimation
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: bbox_drawing
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+  - name: bbox_center_labeling
+    parameters:
+      server_url: http://localhost:10009/mcp
+
+state:
+  question: str
+  messages: list[AnyMessage]
+  original_figure_url: str
+
+  # turn number
+  current_turn: int
+  max_turns: int
+  url_map: dict
+  # store length and width
+  image_dimensions: dict
+
+  prefix: str
+
+  tool_usage: dict
+
+  # trajectory logging
+  trajectory_steps: list
+  total_input_tokens: int
+  total_output_tokens: int
+  pending_thinking: str
+
+workflow:
+  entry_point: agent
+  nodes:
+    agent:
+      name: planner_agent_node
+      parameters:
+        tools:
+          - ocr
+          - detection
+          - segmentation
+          - cropping
+          - depth_estimation
+          - detection_small_object
+        prompt_generator:
+          name: planner
+    action:
+      name: cv_tool_executor
+  edges:
+    - source: agent
+      condition:
+        function: cv_agent_react_should_continue
+        parameters:
+          use_hard_turn_limit: True
+        mapping:
+          continue: action
+          end: END
+    - source: action
+      target: agent
+
+agent_config:
+  max_turns: 10
+
+invocation_config:
+  callbacks:
+    - langfuse
+  recursion_limit: 60
