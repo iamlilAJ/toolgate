@@ -1,11 +1,11 @@
-# ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with
-Pre-Call Gating
+# ToolGate: Token-Efficient Pre-Call Control for Tool-Augmented Vision-Language Agents
 
 [![arXiv](https://img.shields.io/badge/arXiv-2606.03054-b31b1b.svg)](https://arxiv.org/abs/2606.03054)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Code for the paper **["ToolGate: Token-Efficient Pre-Call Control for
-Tool-Augmented Vision-Language Agents"](https://arxiv.org/abs/2606.03054)**.
+Official code for the paper **[ToolGate: Token-Efficient Pre-Call Control for
+Tool-Augmented Vision-Language Agents](https://arxiv.org/abs/2606.03054)**
+(arXiv:2606.03054).
 
 **Authors:** Anjie Liu, Yan Song, Zhixun Chen, Ziqin Gong, Zhongwei Yu, Jun Wang
 
