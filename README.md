@@ -1,8 +1,13 @@
 # ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with
 Pre-Call Gating
 
-Code for *"ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with
-Pre-Call Gating."*
+[![arXiv](https://img.shields.io/badge/arXiv-2606.03054-b31b1b.svg)](https://arxiv.org/abs/2606.03054)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Code for the paper **["ToolGate: Token-Efficient Pre-Call Control for
+Tool-Augmented Vision-Language Agents"](https://arxiv.org/abs/2606.03054)**.
+
+**Authors:** Anjie Liu, Yan Song, Zhixun Chen, Ziqin Gong, Zhongwei Yu, Jun Wang
 
 A vision-language agent calls external tools (detection, OCR, cropping, depth,
 segmentation) to answer hard visual questions. But many tool calls are useless
@@ -64,7 +69,18 @@ Gate behaviour is controlled by env vars read in `skillguard/probe_gate.py`
 > Note: some scripts under `scripts/probing/` assume a local data/results
 > directory layout; adjust the paths near the top of each script for your setup.
 
+## Citation
 
+If you find this work useful, please cite:
+
+```bibtex
+@article{liu2026toolgate,
+  title={ToolGate: Token-Efficient Pre-Call Control for Tool-Augmented Vision-Language Agents},
+  author={Liu, Anjie and Song, Yan and Chen, Zhixun and Gong, Ziqin and Yu, Zhongwei and Wang, Jun},
+  journal={arXiv preprint arXiv:2606.03054},
+  year={2026}
+}
+```
 
 ## License
 
