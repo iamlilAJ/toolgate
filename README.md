@@ -1,11 +1,12 @@
-# ToolGate: Token-Efficient Pre-Call Control for Tool-Augmented Vision-Language Agents
+# ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with Pre-Call Gating
 
 [![arXiv](https://img.shields.io/badge/arXiv-2606.03054-b31b1b.svg)](https://arxiv.org/abs/2606.03054)
+[![EMNLP 2026](https://img.shields.io/badge/EMNLP-2026-4b6cb7.svg)](https://arxiv.org/abs/2606.03054)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Official code for the paper **[ToolGate: Token-Efficient Pre-Call Control for
-Tool-Augmented Vision-Language Agents](https://arxiv.org/abs/2606.03054)**
-(arXiv:2606.03054).
+Official code for the paper **[ToolGate: Reducing Perceptual Tool Calls in
+Vision-Language Agents with Pre-Call Gating](https://arxiv.org/abs/2606.03054)**
+(EMNLP 2026; arXiv:2606.03054).
 
 **Authors:** Anjie Liu, Yan Song, Zhixun Chen, Ziqin Gong, Zhongwei Yu, Jun Wang
 
@@ -74,10 +75,10 @@ Gate behaviour is controlled by env vars read in `skillguard/probe_gate.py`
 If you find this work useful, please cite:
 
 ```bibtex
-@article{liu2026toolgate,
-  title={ToolGate: Token-Efficient Pre-Call Control for Tool-Augmented Vision-Language Agents},
+@inproceedings{liu2026toolgate,
+  title={ToolGate: Reducing Perceptual Tool Calls in Vision-Language Agents with Pre-Call Gating},
   author={Liu, Anjie and Song, Yan and Chen, Zhixun and Gong, Ziqin and Yu, Zhongwei and Wang, Jun},
-  journal={arXiv preprint arXiv:2606.03054},
+  booktitle={Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
   year={2026}
 }
 ```
